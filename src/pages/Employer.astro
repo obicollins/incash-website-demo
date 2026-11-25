@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductShowcase from '../components/ProductShowcase.astro';
+import FinancingCards from '../components/FinancingCards.astro';
+import BrandIcon from '../components/BrandIcon.astro';
+import UiIcon from '../components/UiIcon.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import Faq from '../components/Faq.astro';
+import { employerFaqs } from '../content/faqs';
+
+---
+<Base title="Earned Wage Access and Payroll Financing for Employers in Nigeria | Incash"
+  description="Offer earned wage access to employees in Nigeria, find out how payroll settlement works, and explore Incash payroll financing and working capital."
+  canonical="https://incash.africa/Employer.html">
+  <section class="hero inner-product has-brand-art">
+    <BrandMotif />
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">For employers in Nigeria</p>
+        <h1>Give your team more flexibility between paydays</h1>
+        <p class="lead">Offer earned wage access as an employee benefit. We work with HR and payroll teams in Nigeria to set withdrawal limits, onboard staff and settle requests on payday.</p>
+        <div class="actions"><a class="button" href="https://employer.incash.africa/login">Employer portal ↗</a><a class="secondary" href="/contactus.html">Talk to Incash</a></div>
+      </div>
+      <ProductShowcase screen="employer" />
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container split">
+      <div>
+        <BrandIcon name="repayment" />
+        <h2>Make early pay part of your payroll</h2>
+        <p>Incash works with manual and automated payroll. During setup, agree who will register employees, explain the rules and check deductions against your payroll records.</p>
+        <a class="secondary" href="/hr-tools.html">See the HR rollout checklist ↗</a>
+      </div>
+      <ol class="wage-steps wage-steps--illustrated">
+        <li><span class="step-glyph"><UiIcon name="shield" /></span><strong>Set programme rules</strong><span>Agree on withdrawal limits, request frequency and whether the employer will cover any employee transaction fees.</span></li>
+        <li><span class="step-glyph"><UiIcon name="people" /></span><strong>Onboard eligible employees</strong><span>Explain how to register, complete verification and see available earned pay.</span></li>
+        <li><span class="step-glyph"><UiIcon name="calendar" /></span><strong>Settle advances on payday</strong><span>Use the agreed payroll process to deduct and reconcile advances.</span></li>
+      </ol>
+    </div>
+  </section>
+  <section class="home-services has-brand-art" id="services" aria-labelledby="employer-finance-title">
+    <BrandMotif />
+    <div class="container">
+      <div class="home-services-heading">
+        <h2 id="employer-finance-title">Financing for your business and your team</h2>
+      </div>
+      <FinancingCards audience="employers" />
+    </div>
+  </section>
+  <Faq title="Frequently asked questions for employers" items={employerFaqs} />
+  <section class="section closing-section">
+    <div class="container"><div class="cta-panel has-brand-art">
+      <BrandMotif variant="pair" />
+      <div><h2>Bring early pay to your team</h2><p>Talk with Incash about setting up earned wage access for your employees.</p></div>
+      <a class="button" href="/contactus.html">Talk to Incash <UiIcon name="arrow" size={15} /></a>
+    </div></div>
+  </section>
+</Base>

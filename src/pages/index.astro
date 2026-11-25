@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import AppAccess from '../components/AppAccess.astro';
+import ProductShowcase from '../components/ProductShowcase.astro';
+import ServiceArt from '../components/ServiceArt.astro';
+import FinancingCards from '../components/FinancingCards.astro';
+import UiIcon from '../components/UiIcon.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import CompanyProof from '../components/CompanyProof.astro';
+import Faq from '../components/Faq.astro';
+import { employeeFaqs } from '../content/faqs';
+
+const featuredQuestions = [employeeFaqs[0], employeeFaqs[6], employeeFaqs[12], employeeFaqs[1], employeeFaqs[4]];
+---
+<Base title="Salary Advance and Earned Wage Access in Nigeria | Incash"
+  description="Get part of your pay before payday with Incash. Explore Salary Advance and Earned Wage Access for employees in Nigeria, and financing for employers."
+  canonical="https://incash.africa">
+  <section class="home-hero has-brand-art">
+    <BrandMotif />
+    <div class="container home-hero-grid">
+      <div class="home-hero-copy">
+        <p class="hero-product-label"><UiIcon name="wallet" size={19} /> <span><strong>Salary advance and earned wage access</strong> for Nigerian employees</span></p>
+        <h1>Get paid <em>before payday.</em></h1>
+        <p>Bills don’t always wait for payday. With Incash, you can request part of your pay early in the app or online.</p>
+        <AppAccess />
+        <p class="hero-referral">Available through participating employers. <a class="secondary" href="https://portal.incash.africa/refer-your-employer">Refer your employer <span aria-hidden="true">↗</span></a></p>
+      </div>
+      <ProductShowcase screen="home" />
+    </div>
+  </section>
+
+  <section class="pay-options" aria-labelledby="pay-options-title">
+    <div class="container">
+      <h2 id="pay-options-title">Find the right way to get paid early</h2>
+      <p class="section-intro">If your employer offers Incash, you can request a salary advance or access part of what you’ve earned so far.</p>
+      <div class="pay-options-grid">
+        <article class="pay-option">
+          <ServiceArt kind="advance" />
+          <h3>Salary Advance</h3>
+          <p>Need money before your regular payday? Request an advance and see any fees and the repayment date before you commit.</p>
+          <a class="secondary" href="/salary-advance-in-nigeria.html">Explore Salary Advance <UiIcon name="arrow" size={15} /></a>
+        </article>
+        <article class="pay-option" id="earned-wage-access">
+          <ServiceArt kind="earned" />
+          <h3>Earned Wage Access (EWA)</h3>
+          <p>Already put in the work? Access a portion of what you’ve earned so far this pay period. See how much is available in Incash.</p>
+          <a class="secondary" href="/earned-wage-access-in-nigeria.html">Explore Earned Wage Access <UiIcon name="arrow" size={15} /></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="salary-guide home-pay-benefits has-brand-art" aria-labelledby="salary-guide-title">
+    <BrandMotif variant="pair" />
+    <div class="container salary-guide-grid">
+      <div class="salary-guide-art">
+        <img src="/people-finance-camera.webp" alt="A smiling professional checking her phone at work" width="1200" height="800" loading="lazy" decoding="async" />
+      </div>
+      <div class="salary-guide-copy">
+        <h2 id="salary-guide-title">A little breathing room before payday</h2>
+        <p>When the electricity bill or school fees are due before payday, early access to part of your pay can help you cover the gap.</p>
+        <ul>
+          <li><UiIcon name="check" size={21} /><span><strong>See what’s available.</strong> Your account shows how much you can request.</span></li>
+          <li><UiIcon name="check" size={21} /><span><strong>Know the cost up front.</strong> See any fees and when repayment is due.</span></li>
+          <li><UiIcon name="check" size={21} /><span><strong>Follow your request.</strong> Check its status whenever you need to.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-story salary-advance-story" id="salary-advance" tabindex="-1" aria-labelledby="salary-advance-heading">
+    <div class="container product-grid">
+      <div class="product-copy">
+        <h2 id="salary-advance-heading">Request a salary advance with Incash</h2>
+        <p class="lead">If your employer offers Incash, open the app or sign in on the web.</p>
+        <ol class="wage-steps wage-steps--illustrated">
+          <li><span class="step-glyph"><UiIcon name="people" /></span><strong>Get set up</strong><span>Check with HR that your employer is signed up, then verify your account.</span></li>
+          <li><span class="step-glyph"><UiIcon name="wallet" /></span><strong>Choose an amount</strong><span>Check your limit and review the terms before you send your request.</span></li>
+          <li><span class="step-glyph"><UiIcon name="list" /></span><strong>Track your advance</strong><span>Open Request History to see whether your advance has been approved or settled.</span></li>
+        </ol>
+        <a class="secondary" href="https://portal.incash.africa/">Open Incash <UiIcon name="arrow" size={15} /></a>
+      </div>
+      <ProductShowcase screen="history" highlightAdvance />
+    </div>
+  </section>
+
+  <section class="home-services has-brand-art" aria-labelledby="home-services-title">
+    <BrandMotif variant="pair" />
+    <div class="container">
+      <div class="home-services-heading">
+        <h2 id="home-services-title">Financing for employees and businesses</h2>
+      </div>
+      <FinancingCards />
+    </div>
+  </section>
+
+  <CompanyProof />
+  <Faq items={employeeFaqs} featured={featuredQuestions} />
+
+  <section class="closing-section home-closing">
+    <div class="container">
+      <div class="cta-panel has-brand-art">
+        <BrandMotif variant="pair" />
+        <div class="closing-copy">
+          <h2>Bring Incash to your workplace</h2>
+          <p>Give your team flexibility between paydays. We’ll help you get set up.</p>
+          <a class="button" href="https://employer.incash.africa/login">Get started as an employer <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

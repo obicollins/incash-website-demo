@@ -1,0 +1,84 @@
+---
+import HRModule from '../layouts/HRModule.astro';
+---
+<HRModule title={'Salary & PAYE'} pageTitle="Nigeria Salary and PAYE Calculator"
+  description="Estimate monthly PAYE and take-home pay using Nigeria’s 2026 personal income tax rules."
+  slug="salary-paye">
+  <div class="tool-grid">
+    <div class="tool-panel">
+      <h2>Your monthly pay</h2>
+      <form class="tool-form" id="paye-form">
+        <label>Gross monthly employment pay (₦)
+          <input id="paye-gross" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" required placeholder="e.g. 500000" />
+          <small>Use your regular taxable salary and allowances before deductions.</small>
+        </label>
+        <label>Qualifying monthly payroll deductions (₦)
+          <input id="paye-deductions" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" placeholder="0" />
+          <small>Use the employee-paid amounts shown on your payslip, such as eligible pension, NHF or health insurance contributions.</small>
+        </label>
+        <label>Eligible annual rent paid (₦)
+          <input id="paye-rent" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" placeholder="0" />
+          <small>Enter the rent you can declare and substantiate. Leave blank if unclaimed.</small>
+        </label>
+        <div class="tool-actions"><button class="button" type="submit" disabled>Estimate PAYE</button><button class="button tool-secondary" type="reset">Clear</button></div>
+        <p class="tool-status" id="paye-error" role="alert"></p>
+        <noscript><p>Enable JavaScript to calculate in this browser.</p></noscript>
+      </form>
+    </div>
+    <div class="tool-panel tool-result" aria-live="polite" aria-atomic="true">
+      <h2>Estimated take-home pay</h2>
+      <dl>
+        <div><dt>Monthly take-home</dt><dd id="paye-net">—</dd></div>
+        <div><dt>Monthly PAYE</dt><dd id="paye-monthly">—</dd></div>
+        <div><dt>Annual PAYE</dt><dd id="paye-annual">—</dd></div>
+        <div><dt>Annual rent relief applied</dt><dd id="paye-relief">—</dd></div>
+        <div><dt>Annual chargeable employment pay</dt><dd id="paye-chargeable">—</dd></div>
+      </dl>
+      <p>Assumes the same pay and deductions for 12 months. Bonuses, other income, exemptions and payroll deductions beyond those entered may affect your actual payslip.</p>
+    </div>
+  </div>
+  <div class="tool-panel tool-notes">
+    <h2>How the estimate works</h2>
+    <p>The tool annualises your pay, subtracts qualifying payroll deductions and applies rent relief of 20% of eligible rent paid, capped at ₦500,000 a year. It applies the employment income exemption at or below the ₦70,000 monthly national minimum wage, then uses the progressive bands for chargeable income. Check the result against your payroll records before using it for a filing.</p>
+    <a href="https://nass.gov.ng/documents/download/11249">Read the Nigeria Tax Act 2025, sections 30, 58 and 162 and the Fourth Schedule</a>
+  </div>
+</HRModule>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#paye-form');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const error = document.querySelector<HTMLElement>('#paye-error');
+  const outputs = ['net', 'monthly', 'annual', 'relief', 'chargeable'].map(key => document.getElementById('paye-' + key));
+  const currency = new Intl.NumberFormat('en-NG', {style: 'currency', currency: 'NGN'});
+  const bands = [[800000, 0], [2200000, .15], [9000000, .18], [13000000, .21], [25000000, .23], [Infinity, .25]];
+  const amount = (id: string) => Number(document.querySelector<HTMLInputElement>(id)?.value || 0);
+
+  if (form && submit && error) {
+    const clear = () => outputs.forEach((output) => { if (output) output.textContent = '—'; });
+    submit.disabled = false;
+    form.addEventListener('reset', () => { error.textContent = ''; clear(); });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const gross = amount('#paye-gross');
+      const deductions = amount('#paye-deductions');
+      const rent = amount('#paye-rent');
+      if (deductions > gross) {
+        clear();
+        error.textContent = 'Monthly deductions must be less than or equal to gross pay.';
+        return;
+      }
+      error.textContent = '';
+      const beforeRelief = gross <= 70000 ? 0 : (gross - deductions) * 12;
+      const relief = Math.min(rent * .2, 500000, beforeRelief);
+      const chargeable = beforeRelief - relief;
+      let remaining = chargeable;
+      let tax = 0;
+      for (const [limit, rate] of bands) {
+        const slice = Math.min(remaining, limit);
+        tax += slice * rate;
+        remaining -= slice;
+      }
+      const values = [gross - deductions - tax / 12, tax / 12, tax, relief, chargeable];
+      outputs.forEach((output, index) => { if (output) output.textContent = currency.format(values[index]); });
+    });
+  }
+</script>

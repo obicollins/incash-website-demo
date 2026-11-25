@@ -1,0 +1,64 @@
+---
+import HRModule from '../layouts/HRModule.astro';
+---
+<HRModule title="Employee Turnover Calculator" pageTitle="Staff Attrition and Employee Retention Calculator"
+  description="Calculate employee turnover and retention for a month, quarter or year using headcount and departures."
+  slug="employee-turnover-calculator">
+  <div class="tool-grid">
+    <div class="tool-panel">
+      <h2>Your reporting period</h2>
+      <p>Use headcounts and departures from the same period.</p>
+      <form class="tool-form" id="turnover-form">
+        <label>Employees at the start <input id="turnover-start" type="number" min="0" max="100000000" step="1" required /></label>
+        <label>Employees at the end <input id="turnover-end" type="number" min="0" max="100000000" step="1" required /></label>
+        <label>Total departures <input id="turnover-departures" type="number" min="0" max="100000000" step="1" required /><small>Include staff who joined and left during the period.</small></label>
+        <label>Departures from the starting team <input id="turnover-original-exits" type="number" min="0" max="100000000" step="1" required /><small>Of everyone who left, how many were employed at the start?</small></label>
+        <div class="tool-actions"><button class="button" type="submit" disabled>Calculate rates</button><button class="button tool-secondary" type="reset">Clear</button></div>
+        <p id="turnover-error" class="tool-status" role="alert"></p>
+        <noscript><p>Enable JavaScript to calculate rates in this browser.</p></noscript>
+      </form>
+    </div>
+    <div class="tool-panel tool-result" aria-live="polite" aria-atomic="true">
+      <h2>Workforce summary</h2>
+      <dl>
+        <div><dt>Turnover rate</dt><dd id="turnover-rate">—</dd></div>
+        <div><dt>Retention rate</dt><dd id="turnover-retention">—</dd></div>
+        <div><dt>Average headcount</dt><dd id="turnover-average">—</dd></div>
+      </dl>
+      <p>Turnover divides all departures by the average of opening and closing headcount. Retention divides the number of original employees who stayed by opening headcount. A rate is unavailable if its denominator is zero.</p>
+    </div>
+  </div>
+</HRModule>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#turnover-form');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const error = document.getElementById('turnover-error');
+  const output = ['rate', 'retention', 'average'].map(key => document.getElementById('turnover-' + key));
+  const value = (key: string) => document.querySelector<HTMLInputElement>('#turnover-' + key)!.valueAsNumber;
+  const percent = new Intl.NumberFormat('en-NG', {style: 'percent', maximumFractionDigits: 2});
+
+  if (form && submit && error) {
+    const clear = () => {
+      error.textContent = '';
+      for (const element of output) if (element) element.textContent = '—';
+    };
+    submit.disabled = false;
+    form.addEventListener('reset', clear);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clear();
+      const start = value('start');
+      const end = value('end');
+      const departures = value('departures');
+      const originalExits = value('original-exits');
+      const retained = start - originalExits;
+      if (originalExits > departures || retained < 0 || retained > end) {
+        error.textContent = 'Check your counts. Starting-team departures must fit within total departures and opening headcount. The people who stayed must fit within closing headcount.';
+        return;
+      }
+      const average = (start + end) / 2;
+      const values = [average ? percent.format(departures / average) : 'Unavailable', start ? percent.format(retained / start) : 'Unavailable', average.toLocaleString('en-NG')];
+      output.forEach((element, index) => { if (element) element.textContent = values[index]; });
+    });
+  }
+</script>

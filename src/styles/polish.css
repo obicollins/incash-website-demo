@@ -1,0 +1,50 @@
+:root { --muted: #344754; }
+main p, main li { color: #293f55; }
+main .lead, .home-hero-copy > p:not(.eyebrow) { color: #263e56; }
+main .cta-panel p { color: #e5f1ff; }
+main .home-hero .hero-referral { color: #344b60; }
+main .eyebrow { color: #17558d; }
+
+.home-pay-benefits { background: #102f51; color: #fff; }
+.home-pay-benefits .salary-guide-copy p { color: #e6f1fc; font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 41ch; }
+.home-pay-benefits .salary-guide-copy h2 { color: #fff; }
+.home-pay-benefits .salary-guide-copy ul { padding: 0; list-style: none; }
+.home-pay-benefits .salary-guide-copy li { display: flex; gap: .65rem; align-items: start; color: #eff7fe; }
+.home-pay-benefits .salary-guide-copy li svg { flex: none; color: #99d8ff; }
+.home-pay-benefits a { color: #b6e3ff; }
+.home-pay-benefits .salary-guide-art { border: 1px solid #9fc8ed70; box-shadow: 0 1rem 2.5rem #081c3450; }
+.home-pay-benefits .salary-guide-art img { aspect-ratio: 1; object-position: 74% center; }
+.home-pay-benefits .brand-motif { opacity: .82; }
+@media (max-width: 850px) {
+  .home-pay-benefits .salary-guide-art img { aspect-ratio: 3 / 2; }
+}
+
+.pay-option { padding: clamp(1rem, 2.4vw, 1.65rem); }
+.pay-option h3 { font-size: clamp(1.42rem, 2.4vw, 2.08rem); }
+.pay-option p { max-width: 46ch; color: #263d51; }
+.pay-options-grid, .home-service-grid { grid-auto-rows: 1fr; }
+.home-services { background: #f0f5fb; }
+.home-service { padding: clamp(.9rem, 1.8vw, 1.25rem); }
+.home-service h3 { margin-top: .9rem; }
+.home-service .secondary { min-height: 44px; }
+.pay-option .secondary { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; }
+.pay-option .secondary svg { flex: none; }
+.service-aside .service-art, .example-panel .service-art { margin-bottom: 1rem; }
+
+.salary-advance-story .product-grid { gap: clamp(1.7rem, 6vw, 5.5rem); }
+@media (min-width: 851px) {
+  .salary-advance-story .product-grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .salary-advance-story .product-copy { grid-area: 1 / 2; }
+  .salary-advance-story .product-showcase { grid-area: 1 / 1; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .pay-option, .home-service { transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease; }
+  .pay-option:hover, .home-service:hover { transform: translateY(-4px); border-color: #aac9e8; box-shadow: 0 .7rem 1.55rem #123a5815; }
+  .service-art svg { transition: transform .3s ease; }
+  .pay-option:hover .service-art svg, .home-service:hover .service-art svg { transform: translateY(-3px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero .product-showcase, .inner-product .product-showcase { animation: product-arrival .48s ease-out both; }
+  @keyframes product-arrival { from { opacity: .76; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+}

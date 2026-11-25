@@ -1,0 +1,26 @@
+---
+import '../styles/app-access.css';
+interface Props {
+  showUssd?: boolean;
+  variant?: 'hero' | 'footer';
+}
+
+const { showUssd = false, variant = 'hero' } = Astro.props;
+const channels = [
+  { href: 'https://play.google.com/store/apps/details?id=com.nig.incash.org', badge: 'google-play-badge', label: 'Get Incash on Google Play', width: 218, height: 65 },
+  { href: 'https://apps.apple.com/us/app/incash/id1645548295', badge: 'download-on-the-app-store', label: 'Download Incash on the App Store', width: 194, height: 66 },
+  { href: 'https://portal.incash.africa/', badge: 'web-browser', label: 'Use Incash in your web browser', width: 216, height: 65 },
+];
+if (showUssd) {
+  channels.push({ href: 'tel:*347*338%23', badge: 'ussd-dial', label: 'Use Incash via USSD. Dial *347*338#', width: 181, height: 66 });
+}
+---
+<ul class:list={['app-access', `app-access--${variant}`]} aria-label="Ways to access Incash">
+  {channels.map(({ href, badge, label, width, height }) => (
+    <li>
+      <a href={href}>
+        <img src={`/${badge}.webp`} alt={label} {width} {height} loading={variant === 'footer' ? 'lazy' : undefined} />
+      </a>
+    </li>
+  ))}
+</ul>

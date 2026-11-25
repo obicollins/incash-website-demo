@@ -1,0 +1,28 @@
+---
+import Base from './Base.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import '../styles/hr-tools.css';
+
+interface Props {
+  title: string;
+  pageTitle: string;
+  description: string;
+  slug: string;
+}
+const {title, pageTitle, description, slug} = Astro.props;
+---
+<Base title={`${pageTitle} | Incash HR Tools`} {description} canonical={`https://incash.africa/${slug}.html`}>
+  <section class="tool-hero has-brand-art">
+    <BrandMotif />
+    <div class="container">
+      <a class="tool-back" href="/hr-tools.html">← All HR tools</a>
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+    </div>
+  </section>
+  <section class="section tool-workspace">
+    <div class="container">
+      <slot />
+    </div>
+  </section>
+</Base>

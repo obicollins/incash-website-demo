@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import AppAccess from '../components/AppAccess.astro';
+import ServiceArt from '../components/ServiceArt.astro';
+import ProductShowcase from '../components/ProductShowcase.astro';
+import UiIcon from '../components/UiIcon.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import Faq from '../components/Faq.astro';
+import { ewaFaqs } from '../content/faqs';
+
+const benefits = [
+  { icon: 'percent', title: 'Interest-free access', text: 'Incash EWA is interest-free. You’ll see any transaction fee before you confirm.' },
+  { icon: 'people', title: 'Available through work', text: 'Once your company offers Incash, create your account and verify your details.' },
+  { icon: 'calendar', title: 'Settled on payday', text: 'Your employer deducts the amount you’ve received early when processing your pay.' },
+  { icon: 'smartphone', title: 'Track it on your phone', text: 'Check how much you can access and follow your requests in the app.' },
+] as const;
+const canonical = 'https://incash.africa/earned-wage-access-in-nigeria.html';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Incash Earned Wage Access',
+  serviceType: 'Earned wage access',
+  description: 'Early access to part of the pay employees have already earned, offered through participating employers in Nigeria.',
+  url: canonical,
+  areaServed: { '@type': 'Country', name: 'Nigeria' },
+  provider: { '@type': 'FinancialService', name: 'Incash', url: 'https://incash.africa' },
+};
+---
+<Base title="Earned Wage Access for Employees in Nigeria | Incash Africa"
+  description="See how earned wage access works with Incash in Nigeria, from checking how much of your earned pay is available to settling the amount through payroll."
+  {canonical} {structuredData}>
+  <section class="hero inner-product has-brand-art">
+    <BrandMotif />
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Earned wage access for employees</p>
+        <h1>Access the pay you’ve already earned</h1>
+        <p class="lead">Earned wage access lets you request a portion of what you’ve earned so far this pay period. If your employer offers Incash, sign in to see how much is available.</p>
+        <AppAccess />
+        <a class="secondary" href="https://portal.incash.africa/refer-your-employer">Refer your employer <UiIcon name="arrow" size={15} /></a>
+      </div>
+      <ProductShowcase screen="limit" />
+    </div>
+  </section>
+
+  <section class="benefit-section has-brand-art" aria-labelledby="ewa-benefits-title">
+    <BrandMotif />
+    <div class="container">
+      <h2 id="ewa-benefits-title">Early access to pay, with clear terms</h2>
+      <div class="benefit-grid benefit-grid--editorial">
+        {benefits.map(({ icon, title, text }) => (
+          <article>
+            <span class="feature-glyph"><UiIcon name={icon} size={28} /></span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="request-section" aria-labelledby="ewa-payday-title">
+    <div class="container request-grid">
+      <ProductShowcase screen="history" earnedPayOnly />
+      <div class="request-copy">
+        <span class="feature-glyph"><UiIcon name="calendar" size={27} /></span>
+        <h2 id="ewa-payday-title">What changes on payday?</h2>
+        <p>Your employer deducts the amount you accessed early when they run payroll. Here’s what that can look like in your take-home pay.</p>
+        <div class="payday-example">
+          <h3>A ₦20,000 example</h3>
+          <dl>
+            <div><dt>Scheduled take-home pay</dt><dd>₦150,000</dd></div>
+            <div><dt>Earned pay you received early</dt><dd>−₦20,000</dd></div>
+            <div><dt>Remaining pay</dt><dd>₦130,000</dd></div>
+          </dl>
+          <small>Example amounts before any fees or payroll adjustments.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ewa-eligibility">
+    <div class="container split">
+      <div>
+        <span class="feature-glyph"><UiIcon name="people" size={27} /></span>
+        <h2>Who can use earned wage access?</h2>
+        <p>Employees at participating companies can sign up and verify their details. Once your account is ready, Incash will show you how much of your earned pay you can access.</p>
+      </div>
+      <div class="example-panel">
+        <ServiceArt kind="earned" />
+        <h3>If your employer hasn’t signed up</h3>
+        <p>Ask your HR or payroll team about offering earned wage access. You can also refer your employer and we’ll speak with them about getting started.</p>
+        <a class="secondary" href="https://portal.incash.africa/refer-your-employer">Refer your employer <UiIcon name="arrow" size={15} /></a>
+      </div>
+    </div>
+  </section>
+  <Faq title="Questions about earned wage access" items={ewaFaqs} />
+  <section class="section closing-section">
+    <div class="container"><div class="cta-panel has-brand-art">
+      <BrandMotif variant="pair" />
+      <div><h2>Want to offer EWA to your team?</h2><p>See how Incash fits into your payroll and what it takes to get set up.</p></div>
+      <a class="button" href="/Employer.html">For employers <UiIcon name="arrow" size={15} /></a>
+    </div></div>
+  </section>
+</Base>

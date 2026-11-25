@@ -1,0 +1,22 @@
+---
+import Service from '../layouts/Service.astro';
+
+const uses = [
+  { icon: 'user', title: 'Check if you’re eligible', text: 'Ask Incash about your eligibility and whether your employer needs to be enrolled.' },
+  { icon: 'wallet', title: 'See how much you could access', text: 'The maximum is three times your monthly salary. Your available amount depends on eligibility and approval.' },
+  { icon: 'calendar', title: 'Review the full cost and repayment', text: 'Check the interest, any fees, and your instalment amounts and due dates before accepting an offer.' },
+] as const;
+const questions = [
+  { question: 'How much can I get with Incash Salary Top-Up?', answer: 'Eligible employees can access up to three times their monthly salary. For example, if you earn ₦200,000 a month, three times your salary is ₦600,000. The amount Incash approves may be lower.' },
+  { question: 'What can I use Salary Top-Up for?', answer: 'Incash offers Salary Top-Up to employees in Nigeria for larger expenses such as rent, car repairs or family costs.' },
+  { question: 'How is Salary Top-Up different from earned wage access?', answer: 'Earned wage access lets you request a portion of pay you have already earned. Salary Top-Up provides separate salary-linked financing with an agreed repayment schedule.', link: {href: '/earned-wage-access-in-nigeria.html', label: 'See how earned wage access works'} },
+  { question: 'How do I enquire about Salary Top-Up?', answer: 'Contact Incash to check eligibility, what information you need to provide, the full cost and how to apply. If your employer hasn’t joined Incash, you can refer them.', link: {href: 'https://portal.incash.africa/refer-your-employer', label: 'Refer your employer'} },
+];
+---
+<Service title="Salary Top-Up" slug="salary-financing" art="topup" heading="Salary Top-Up in Nigeria"
+  description="Eligible employees in Nigeria can access up to 3× their monthly salary with Incash Salary Top-Up. Check eligibility, costs and repayment."
+  intro="Get up to 3× your monthly salary when you need help with a larger expense, such as rent or car repairs. The amount you can access depends on eligibility and approval."
+  explanationTitle="How Salary Top-Up works"
+  explanation="Salary Top-Up is financing based on your monthly salary. You repay the amount you borrow on an agreed schedule. Ask Incash what you qualify for and review the full cost before you accept."
+  action="Ask about Salary Top-Up" closingTitle="Talk through your next big expense"
+  {uses} {questions} />

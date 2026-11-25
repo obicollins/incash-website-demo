@@ -1,0 +1,32 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import VisitorAssistant from '../components/VisitorAssistant.astro';
+import '../styles/global.css';
+import '../styles/redesign.css';
+import '../styles/pay-options.css';
+import '../styles/polish.css';
+import seoBaseline from '../seo-baseline.json';
+const routeName = Astro.url.pathname.split('/').pop()?.replace(/\.html$/, '') || 'index';
+const seo = seoBaseline[routeName === 'ewa' ? 'index' : routeName];
+const { title, description, canonical, structuredData } = Astro.props;
+const pageUrl = canonical || new URL(Astro.url.pathname, 'https://incash.africa').href;
+
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title><meta property="og:type" content="website" /><meta property="og:site_name" content="Incash Africa" /><meta property="og:title" content={title} /><meta property="og:url" content={pageUrl} />{description && <meta property="og:description" content={description} />}{description && <meta name="description" content={description}/>}{canonical && <link rel="canonical" href={canonical}/>}{seo?.keywords && <meta name="keywords" content={seo.keywords}/>}{seo?.robots && <meta name="robots" content={seo.robots}/>}{seo?.schema && <script type="application/ld+json" set:html={JSON.stringify(seo.schema)} />}{structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NZZZ3M9');</script></head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <Header route={routeName} />
+  <main id="main-content" tabindex="-1"><slot /></main>
+  <Footer />
+  <VisitorAssistant />
+</body>
+</html>
+
+
+
+
+
+
+

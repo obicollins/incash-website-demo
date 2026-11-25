@@ -1,0 +1,37 @@
+---
+import HRModule from '../layouts/HRModule.astro';
+import UiIcon from '../components/UiIcon.astro';
+---
+<HRModule title="AI HR Letter Generator" pageTitle="AI HR Letter Generator and HR Documents"
+  description="Draft offer letters, confirmation letters, employment letters, contracts and other HR documents with AI."
+  slug="hr-documents">
+  <div class="tool-grid">
+    <div class="tool-panel">
+      <span class="feature-glyph"><UiIcon name="file" size={27} /></span>
+      <h2>Generate an HR document</h2>
+      <div class="tool-form">
+        <label>Document type
+          <select><option>Offer letter</option><option>Employment confirmation letter</option><option>Employment verification letter</option><option>Employment contract</option><option>Leave approval letter</option><option>New-starter checklist</option><option>Other HR document</option></select>
+        </label>
+        <div class="tool-actions"><button class="button" id="generate-document" type="button">Generate draft</button></div>
+        <p class="tool-status" id="document-status" role="status"></p>
+      </div>
+    </div>
+    <aside class="tool-panel tool-result">
+      <h2>Documents you’ll be able to draft</h2>
+      <ul>
+        <li><strong>Offer and employment letters</strong> for new hires and employment verification.</li>
+        <li><strong>Confirmation letters</strong> following a probation review.</li>
+        <li><strong>Employment contracts</strong> with role details and terms for your team to review.</li>
+        <li><strong>Other HR documents</strong> such as leave approvals and new-starter checklists.</li>
+      </ul>
+      <p>Drafts will be available when the AI service is connected.</p>
+    </aside>
+  </div>
+</HRModule>
+<script>
+  const status = document.getElementById('document-status');
+  document.getElementById('generate-document')?.addEventListener('click', () => {
+    if (status) status.textContent = 'AI document generation is not connected yet. Please check back once it’s available.';
+  });
+</script>

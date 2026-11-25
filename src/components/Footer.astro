@@ -1,0 +1,80 @@
+---
+import '../styles/footer.css';
+import AppAccess from './AppAccess.astro';
+import UiIcon from './UiIcon.astro';
+import BrandMotif from './BrandMotif.astro';
+
+const groups = [
+  {
+    name: 'Company',
+    links: [
+      { label: 'About Us', href: '/about.html' },
+      { label: 'Careers', href: '/careers.html' },
+      { label: 'Contact Us', href: '/contactus.html' },
+      { label: 'Articles', href: 'https://blog.incash.africa/' },
+    ],
+  },
+  {
+    name: 'Services',
+    links: [
+      { label: 'Employer', href: '/Employer.html' },
+      { label: 'Employee', href: '/' },
+      { label: 'Salary Advance', href: '/salary-advance-in-nigeria.html' },
+      { label: 'Earned Wage Access', href: '/earned-wage-access-in-nigeria.html' },
+      { label: 'Salary Top-Up', href: '/salary-financing.html#salary-top-up' },
+      { label: 'Payroll Financing', href: '/payroll-financing-in-nigeria.html' },
+      { label: 'Working Capital', href: '/working-capital-in-nigeria.html' },
+    ],
+  },
+  {
+    name: 'Legal',
+    links: [
+      { label: 'Terms of Use', href: '/termsOfUse.html' },
+      { label: 'Privacy Policy', href: '/privacypolicy.html' },
+    ],
+  },
+];
+---
+<footer class="incash-footer">
+  <div class="container">
+    <div class="footer-top has-brand-art">
+      <BrandMotif />
+      <div class="footer-identity">
+        <a class="footer-wordmark" href="/" aria-label="Incash home">
+          <img src="/incash-logo.svg" alt="Incash" width="172" height="40" />
+        </a>
+        <p>Early access to pay for employees and financing for employers and businesses.</p>
+      </div>
+      <div class="footer-downloads">
+        <h2>Access Incash</h2>
+        <AppAccess variant="footer" showUssd />
+      </div>
+    </div>
+    <div class="footer-grid">
+      {groups.map(({ name, links }) => (
+        <div>
+          <h2>{name}</h2>
+          <ul class="footer-links">
+            {links.map(({ label, href }) => <li><a href={href}>{label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+      <div class="footer-offices">
+        <h2>Reach us</h2>
+        <address>
+          <div class="footer-contact-row">
+            <span class="footer-contact-icon"><UiIcon name="pin" size={17} /></span>
+            <div><strong>Lagos, Nigeria</strong><p>Incash Inc., 10th Floor, Eleganza Biro Plaza, 634, Akin Adesola Street / Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria</p></div>
+          </div>
+          <div class="footer-contact-row">
+            <span class="footer-contact-icon"><UiIcon name="pin" size={17} /></span>
+            <div><strong>Wilmington, Delaware</strong><p>2055 Limestone Rd STE 200-C, Wilmington, DE, New Castle, US, 19808</p></div>
+          </div>
+        </address>
+        <a class="footer-contact-row" href="tel:+2349024999999"><span class="footer-contact-icon"><UiIcon name="phone" size={17} /></span>+234 902 499 9999</a>
+        <a class="footer-contact-row" href="mailto:team@incash.africa"><span class="footer-contact-icon"><UiIcon name="mail" size={17} /></span>team@incash.africa</a>
+      </div>
+    </div>
+    <div class="footer-end">© {new Date().getFullYear()} Incash Inc. All rights reserved.</div>
+  </div>
+</footer>

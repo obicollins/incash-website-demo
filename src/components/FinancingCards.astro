@@ -1,0 +1,32 @@
+---
+import ServiceArt from './ServiceArt.astro';
+import UiIcon from './UiIcon.astro';
+
+const { audience = 'employees' } = Astro.props;
+const topup = {
+  kind: 'topup', title: 'Salary Top-Up', href: '/salary-financing.html#salary-top-up',
+  detail: 'Eligible employees can access up to 3× their monthly salary for larger expenses, from rent to car repairs.',
+  action: 'Explore Salary Top-Up',
+} as const;
+const payroll = {
+  kind: 'payroll', title: 'Payroll Financing', href: '/payroll-financing-in-nigeria.html',
+  detail: 'Salaries due before your customers pay? Ask about financing for your next payroll run.',
+  action: 'Explore payroll financing',
+} as const;
+const capital = {
+  kind: 'capital', title: 'Working Capital', href: '/working-capital-in-nigeria.html',
+  detail: 'Keep day-to-day operations moving with financing for costs such as stock and supplier bills.',
+  action: 'Explore working capital',
+} as const;
+const services = audience === 'employers' ? [payroll, capital, topup] : [topup, payroll, capital];
+---
+<div class="home-service-grid">
+  {services.map(({ kind, title, href, detail, action }) => (
+    <article class="home-service">
+      <ServiceArt kind={kind} />
+      <h3>{title}</h3>
+      <p>{detail}</p>
+      <a class="secondary" href={href}>{action} <UiIcon name="arrow" size={15} /></a>
+    </article>
+  ))}
+</div>

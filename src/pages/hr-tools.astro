@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import UiIcon from '../components/UiIcon.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import '../styles/hr-tools.css';
+
+const modules = [
+  {title: 'Salary & PAYE', icon: 'calculator', summary: 'Estimate Nigerian PAYE and monthly take-home pay from gross salary, qualifying deductions and rent relief.', href: '/salary-paye.html', keywords: 'tax payroll income net naira'},
+  {title: 'Leave Calculator', icon: 'calendar', summary: 'Count working days in a leave request and see how many days will remain.', href: '/leave-calculator.html', keywords: 'annual leave holiday vacation balance'},
+  {title: 'HR Documents', icon: 'file', summary: 'AI HR Letter Generator for offer letters, confirmation letters, employment letters, contracts and other HR documents. AI connection pending.', href: '/hr-documents.html', keywords: 'templates letter onboarding paperwork ai generator'},
+  {title: 'Probation Period Calculator', icon: 'calendar', summary: 'Find a probation completion date and schedule the employee’s review.', href: '/probation-calculator.html', keywords: 'start date end months new hire confirmation'},
+  {title: 'Employee Turnover Calculator', icon: 'chart', summary: 'Calculate staff attrition and retention rates from headcount and departures.', href: '/employee-turnover-calculator.html', keywords: 'retention turnover attrition workforce metrics'},
+  {title: 'Interview Scorecard', icon: 'check', summary: 'Compare interview feedback using consistent criteria for each role.', keywords: 'hiring recruitment candidates'},
+  {title: 'HR Analytics', icon: 'chart', summary: 'Track key workforce measures such as headcount, staff turnover and absences.', keywords: 'reports people metrics retention'},
+  {title: 'More Tools', icon: 'grid', summary: 'More resources for day-to-day HR and payroll work.', keywords: 'operations resources'},
+] as const;
+---
+<Base title="Free HR Tools for Nigerian Employers | Incash Africa"
+  description="Use free Incash HR tools to estimate Nigerian PAYE, calculate leave and probation dates, and measure staff turnover and retention."
+  canonical="https://incash.africa/hr-tools.html">
+  <section class="tool-hero has-brand-art">
+    <BrandMotif variant="pair" />
+    <div class="container">
+      <p class="eyebrow">Incash HR Tools</p>
+      <h1>Everyday HR tasks, made easier.</h1>
+      <p class="lead">Estimate take-home pay, plan time off and probation reviews, and measure staff turnover.</p>
+      <div class="tool-search" hidden>
+        <label for="find-tool">Find an HR tool</label>
+        <input id="find-tool" type="search" placeholder="Try PAYE, leave or templates" aria-controls="tool-catalogue" />
+      </div>
+    </div>
+  </section>
+  <section class="section tool-catalogue" aria-labelledby="tool-catalogue-title">
+    <div class="container">
+      <h2 id="tool-catalogue-title">Explore the tools</h2>
+      <p class="tool-search-status" role="status" hidden></p>
+      <div class="tool-catalogue-grid" id="tool-catalogue">
+        {modules.map(({title, icon, summary, keywords, ...module}) => (
+          <article class:list={['tool-tile', !('href' in module) && 'tool-tile--upcoming']} data-tool={title + ' ' + summary + ' ' + keywords}>
+            <span class="feature-glyph"><UiIcon name={icon} size={26} /></span>
+            <h3>{title}</h3>
+            <p>{summary}</p>
+            {'href' in module ? <a class="secondary" href={module.href}>Open {title} <UiIcon name="arrow" size={16} /></a> : <span class="tool-coming">Coming soon</span>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <h2>Bringing Incash to your workplace?</h2>
+      <p class="section-intro">Help staff understand earned wage access and agree with your payroll team on who can use it and how deductions will work.</p>
+      <div class="actions">
+        <a class="button" href="/Employer.html">Explore employer onboarding</a>
+        <a class="secondary" href="/earned-wage-access-in-nigeria.html">Earned wage access guide</a>
+        <a class="secondary" href="/payroll-financing-in-nigeria.html">Payroll financing</a>
+        <a class="secondary" href="https://blog.incash.africa/">Browse articles</a>
+      </div>
+    </div>
+  </section>
+</Base>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#find-tool');
+  const status = document.querySelector<HTMLElement>('.tool-search-status');
+  const tiles = Array.from(document.querySelectorAll<HTMLElement>('[data-tool]'));
+  if (search && status) {
+    search.closest('.tool-search')?.removeAttribute('hidden');
+    search.addEventListener('input', () => {
+      const terms = search.value.toLowerCase().trim().split(/\s+/);
+      let matches = 0;
+      for (const tile of tiles) {
+        const description = (tile.dataset.tool || '').toLowerCase();
+        tile.hidden = !terms.every((term) => description.includes(term));
+        if (!tile.hidden) matches++;
+      }
+      status.hidden = !search.value.trim();
+      status.textContent = matches === 0 ? 'No matching tools.' : `${matches} ${matches === 1 ? 'tool' : 'tools'} found.`;
+    });
+  }
+</script>

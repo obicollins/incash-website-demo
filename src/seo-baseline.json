@@ -1,0 +1,114 @@
+{
+  "index": {
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Incash Africa",
+      "url": "https://incash.africa",
+      "logo": "https://incash.africa/images/common-image/incash-logo-desktop.svg",
+      "description": "Incash Africa is a leading provider of Earned Wage Access (EWA) solutions in Nigeria, empowering employees with financial flexibility and employers with seamless payroll solutions.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "10th Floor, Eleganza Biro Plaza, 634, Akin Adesola Street / Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria",
+        "addressLocality": "Lagos",
+        "addressCountry": "NG"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+234 902 499 9999",
+        "contactType": "customer service",
+        "areaServed": "NG",
+        "availableLanguage": [
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/incashafrica",
+        "https://www.linkedin.com/company/in-cash/"
+      ]
+    },
+    "keywords": "salary advance, zero interest loans in Nigeria, employee loans, salary advance Nigeria, zero interest salary advance in Nigeria, financial assistance, employee benefits, quick loans for employees, no interest loans, salary loan Nigeria, zero interest salary advance in Nigeria, quick loans for Nigerian employees, salary advance app in nigeria, Earned Wages Access Platform in Nigeria, EWA in Nigeria, Are there any EWA apps in Nigeria, What are earned wages access platforms in Nigeria, are there any earned wages access websites in Nigeria, Earned Wages Access provider website in Nigeria, EWA platform in Nigeria",
+    "robots": "index, follow"
+  },
+  "Employer": {
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Incash Africa",
+      "url": "https://incash.africa",
+      "logo": "https://incash.africa/images/common-image/incash-logo-desktop.svg",
+      "description": "Incash Africa is a leading provider of Earned Wage Access (EWA) solutions in Nigeria, empowering employees with financial flexibility and employers with seamless payroll solutions.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "10th Floor, Eleganza Biro Plaza, 634, Akin Adesola Street / Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria",
+        "addressLocality": "Lagos",
+        "addressCountry": "NG"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+234 902 499 9999",
+        "contactType": "customer service",
+        "areaServed": "NG",
+        "availableLanguage": [
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/incashafrica",
+        "https://www.linkedin.com/company/in-cash/"
+      ]
+    },
+    "keywords": "salary advance, salary advance provider in nigeria,  employee loans, salary advance Nigeria, zero interest salary advance in Nigeria, no interest loans, zero interest salary advance in Nigeria, quick loans for Nigerian employees, employee loan app, instant loans for Nigerian employees, Earned Wages Access Provider in Nigeria, EWA provider in Nigeria, what are Earned Wages Access(EWA) platforms in Nigeria, are there any earned wages access(EWA) platforms in Nigeria, are there any EWA websites in Nigeria, what are the best salary advance platforms in Nigeria.",
+    "robots": "index, follow"
+  },
+  "about": {
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Incash Africa",
+      "url": "https://incash.africa",
+      "logo": "https://incash.africa/images/common-image/incash-logo-desktop.svg",
+      "description": "Incash Africa is a leading provider of Earned Wage Access (EWA) solutions in Nigeria, empowering employees with financial flexibility and employers with seamless payroll solutions.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "10th Floor, Eleganza Biro Plaza, 634, Akin Adesola Street / Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria",
+        "addressLocality": "Lagos",
+        "addressCountry": "NG"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+234 902 499 9999",
+        "contactType": "customer service",
+        "areaServed": "NG",
+        "availableLanguage": [
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/incashafrica",
+        "https://www.linkedin.com/company/in-cash/"
+      ]
+    },
+    "keywords": "salary advance, zero interest loans, employee loans, salary advance Nigeria, zero interest salary advance, financial assistance, employee benefits, quick loans, no interest loans, salary loan Nigeria, zero interest salary advance Nigeria",
+    "robots": "index, follow"
+  },
+  "careers": {
+    "schema": null,
+    "keywords": "salary advance, zero interest loans, employee loans, salary advance Nigeria, zero interest salary advance, financial assistance, employee benefits, quick loans, no interest loans, salary loan Nigeria, zero interest salary advance Nigeria"
+  },
+  "contactus": {
+    "schema": null,
+    "keywords": "salary advance, zero interest loans, employee loans, salary advance Nigeria, zero interest salary advance, financial assistance, employee benefits, quick loans, no interest loans, salary loan Nigeria, zero interest salary advance Nigeria"
+  },
+  "earned-wage-access-in-nigeria": {
+    "schema": null
+  },
+  "termsOfUse": {
+    "schema": null,
+    "keywords": "salary advance, zero interest loans, employee loans, salary advance Nigeria, zero interest salary advance, financial assistance, employee benefits, quick loans, no interest loans, salary loan Nigeria, zero interest salary advance Nigeria"
+  },
+  "privacypolicy": {
+    "schema": null,
+    "keywords": "salary advance, zero interest loans, employee loans, salary advance Nigeria, zero interest salary advance, financial assistance, employee benefits, quick loans, no interest loans, salary loan Nigeria, zero interest salary advance Nigeria"
+  }
+}

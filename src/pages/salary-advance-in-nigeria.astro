@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import ServiceArt from '../components/ServiceArt.astro';
+import UiIcon from '../components/UiIcon.astro';
+import Faq from '../components/Faq.astro';
+import { employeeFaqs } from '../content/faqs';
+
+const canonical = 'https://incash.africa/salary-advance-in-nigeria.html';
+const description = 'Request a salary advance with Incash in Nigeria. See how to check eligibility through your employer, review your available amount and track your request.';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Incash Salary Advance in Nigeria',
+  serviceType: 'Salary advance',
+  url: canonical,
+  description,
+  areaServed: { '@type': 'Country', name: 'Nigeria' },
+  provider: { '@type': 'FinancialService', name: 'Incash', url: 'https://incash.africa/' },
+};
+const steps = [
+  { icon: 'people', heading: 'Check with your HR team', text: 'If your employer already offers Incash, create an account and verify your details. If they haven’t joined, you can refer them.' },
+  { icon: 'wallet', heading: 'Review what’s available', text: 'Sign in to see how much you can request. Review any fees and the repayment date before you confirm.' },
+  { icon: 'list', heading: 'Follow your request', text: 'Open Request History in Incash to see whether the advance has been approved or settled.' },
+] as const;
+const questions = [employeeFaqs[6], employeeFaqs[2], employeeFaqs[1], employeeFaqs[4]];
+---
+<Base title="Salary Advance in Nigeria | Incash" {description} {canonical} {structuredData}>
+  <section class="hero service-hero has-brand-art">
+    <BrandMotif />
+    <div class="container service-grid">
+      <div>
+        <p class="eyebrow">For employees</p>
+        <h1>Salary Advance in Nigeria</h1>
+        <p class="lead">When a bill is due before payday, a salary advance lets you request part of your pay early. If your employer offers Incash, check what you can access and request an advance in the app or online.</p>
+        <div class="actions">
+          <a class="button" href="https://portal.incash.africa/">Open Incash <UiIcon name="arrow" size={16} /></a>
+          <a class="secondary" href="https://portal.incash.africa/refer-your-employer">Refer your employer <UiIcon name="arrow" size={15} /></a>
+        </div>
+      </div>
+      <aside class="service-aside">
+        <ServiceArt kind="advance" />
+        <h2>What happens on payday?</h2>
+        <p>Your employer deducts the advance through payroll. Review the amount and timing in Incash so you can plan for what will be left on payday.</p>
+      </aside>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <h2>How to request an advance</h2>
+      <div class="cards">
+        {steps.map(({ icon, heading, text }) => (
+          <article class="card">
+            <span class="feature-glyph"><UiIcon name={icon} size={26} /></span>
+            <h3>{heading}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Faq title="Questions about salary advances" items={questions} />
+  <section class="section">
+    <div class="container">
+      <h2>Explore other ways to access funds</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Earned Wage Access</h3>
+          <p>Access a portion of what you’ve already earned this pay period.</p>
+          <a class="secondary" href="/earned-wage-access-in-nigeria.html">How Earned Wage Access works</a>
+        </article>
+        <article class="card">
+          <h3>Salary Top-Up</h3>
+          <p>Ask about salary-linked financing for larger expenses such as rent or car repairs.</p>
+          <a class="secondary" href="/salary-financing.html#salary-top-up">Explore Salary Top-Up</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

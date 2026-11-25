@@ -1,0 +1,45 @@
+.pay-options {
+  padding: clamp(2.65rem, 6vw, 5rem) 0;
+  background: #f9faf7;
+}
+.card > .feature-glyph { margin-bottom: .75rem; }
+.card > h2 { font-size: clamp(1.2rem, 2vw, 1.55rem); margin: .4rem 0 .6rem; }
+.pay-options h2 { margin: 0 0 .55rem; }
+.pay-options .section-intro { margin: 0; max-width: 53ch; }
+.pay-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.9rem, 2.5vw, 1.65rem);
+  margin-top: clamp(1.3rem, 3vw, 2rem);
+}
+.pay-option {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  justify-items: start;
+  padding: clamp(1.3rem, 3.4vw, 2.65rem);
+  border: 1px solid #d6e5ef;
+  border-radius: 1.25rem;
+  background: #e9f4ff;
+}
+.pay-option:nth-child(2) { background: #eaf1eb; border-color: #d6e4d8; }
+.pay-option h3 { margin: .85rem 0 .45rem; font-size: clamp(1.35rem, 2.5vw, 2.12rem); }
+.pay-option p { max-width: 42ch; margin: 0 0 1.25rem; color: #3c5369; }
+.pay-option .secondary svg { vertical-align: -.13em; margin-left: .13rem; }
+.feature-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  color: #155585;
+  background: #deedf9;
+  border: 1px solid #cbdfee;
+  border-radius: .95rem;
+}
+.pay-option .feature-glyph { background: #f9fcff; }
+.pay-option:nth-child(2) .feature-glyph { color: #2b6253; background: #f9fcf9; border-color: #d3e4d9; }
+@media (max-width: 620px) {
+  .pay-options-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 850px) {
+  .request-grid .request-copy { grid-row: 1; }
+}

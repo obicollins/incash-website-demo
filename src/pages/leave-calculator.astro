@@ -1,0 +1,90 @@
+---
+import HRModule from '../layouts/HRModule.astro';
+---
+<HRModule title="Leave Calculator" pageTitle="Working Days and Leave Calculator"
+  description="Count the working days in a leave request and see what remains in your leave balance."
+  slug="leave-calculator">
+  <div class="tool-grid">
+    <div class="tool-panel">
+      <h2>Plan your leave</h2>
+      <form class="tool-form" id="leave-form">
+        <label>First day of leave <input id="leave-start" type="date" min="1900-01-01" max="2200-12-31" required /></label>
+        <label>Last day of leave <input id="leave-end" type="date" min="1900-01-01" max="2200-12-31" required /></label>
+        <label>Work schedule
+          <select id="leave-schedule"><option value="5">Monday to Friday</option><option value="6">Monday to Saturday</option><option value="7">Every day</option></select>
+        </label>
+        <label>Available leave balance (days) <input id="leave-balance" type="number" inputmode="decimal" min="0" max="3650" step=".01" placeholder="Optional" /><small>Use your current balance from HR, including any carryover.</small></label>
+        <label>Public holidays or company closure dates
+          <textarea id="leave-excluded" rows="3" maxlength="2500" placeholder="e.g. 2026-12-25"></textarea>
+          <small>Enter YYYY-MM-DD dates separated by commas or new lines.</small>
+        </label>
+        <div class="tool-actions"><button class="button" type="submit" disabled>Calculate leave</button><button class="button tool-secondary" type="reset">Clear</button></div>
+        <p class="tool-status" id="leave-error" role="alert"></p>
+        <noscript><p>Enable JavaScript to calculate in this browser.</p></noscript>
+      </form>
+    </div>
+    <div class="tool-panel tool-result" aria-live="polite" aria-atomic="true">
+      <h2>Leave summary</h2>
+      <dl>
+        <div><dt>Calendar days</dt><dd id="leave-calendar-days">—</dd></div>
+        <div><dt>Working days excluded</dt><dd id="leave-excluded-days">—</dd></div>
+        <div><dt>Leave days to deduct</dt><dd id="leave-work-days">—</dd></div>
+        <div><dt>Remaining balance</dt><dd id="leave-remaining">—</dd></div>
+      </dl>
+      <p id="leave-message">The first and last dates are included. Holidays count as exclusions only when they fall on a scheduled working day.</p>
+      <p>Use the employee’s actual schedule and leave allowance. Your HR team can confirm how your organisation handles public holidays and carryover.</p>
+    </div>
+  </div>
+</HRModule>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#leave-form');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const error = document.querySelector<HTMLElement>('#leave-error');
+  const message = document.querySelector<HTMLElement>('#leave-message');
+  const outputs = ['calendar-days','excluded-days','work-days','remaining'].map(key => document.getElementById('leave-' + key));
+  const day = 86400000;
+  const value = (id: string) => document.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(id)?.value || '';
+  const dateValue = (text: string) => Date.parse(text + 'T00:00:00Z');
+  const format = (value: number) => value.toLocaleString('en-NG', {maximumFractionDigits: 2});
+  if (form && submit && error && message) {
+    const defaultMessage = message.textContent;
+    const clear = () => {
+      message.textContent = defaultMessage;
+      outputs.forEach(output => { if (output) output.textContent = '—'; });
+    };
+    submit.disabled = false;
+    form.addEventListener('reset', () => { clear(); error.textContent = ''; });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const start = dateValue(value('#leave-start'));
+      const end = dateValue(value('#leave-end'));
+      const span = (end - start) / day + 1;
+      const scheduledDays = Number(value('#leave-schedule'));
+      const exclusions = new Set(value('#leave-excluded').split(/[\s,]+/).filter(Boolean));
+      const invalidDate = [...exclusions].some(text => {
+        const parsed = dateValue(text);
+        return !/^\d{4}-\d{2}-\d{2}$/.test(text) || !Number.isFinite(parsed) || new Date(parsed).toISOString().slice(0, 10) !== text;
+      });
+      clear();
+      if (span < 1 || span > 3660 || invalidDate) {
+        error.textContent = invalidDate ? 'Enter valid closure dates in YYYY-MM-DD format.' : 'Enter an end date on or after the start date, within a 10-year period.';
+        return;
+      }
+      error.textContent = '';
+      let workingDays = 0;
+      let excludedDays = 0;
+      for (let time = start; time <= end; time += day) {
+        const date = new Date(time);
+        const weekday = date.getUTCDay() || 7;
+        if (weekday > scheduledDays) continue;
+        if (exclusions.has(date.toISOString().slice(0, 10))) excludedDays++;
+        else workingDays++;
+      }
+      const balance = value('#leave-balance');
+      const remaining = Number(balance) - workingDays;
+      const results = [format(span), format(excludedDays), format(workingDays), balance ? format(remaining) : 'Balance needed'];
+      outputs.forEach((output, index) => { if (output) output.textContent = results[index]; });
+      if (balance && remaining < 0) message.textContent = 'This request exceeds your balance by ' + format(-remaining) + ' days.';
+    });
+  }
+</script>

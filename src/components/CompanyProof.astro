@@ -1,0 +1,62 @@
+---
+import '../styles/partner-loop.css';
+
+const logos = [
+  ['aeti', 'AETI'], ['oil', 'OIL'], ['samstar-always-bright', 'Samstar'],
+  ['aptech', 'Aptech'], ['merald', 'Merald'], ['garden-city-mall', 'Garden City Mall'],
+  ['hypercity', 'Hypercity'], ['african-industries', 'African Industries'],
+  ['nigeria-limited', 'Nigeria Limited'], ['sacvin', 'Sacvin'],
+  ['pacegate', 'Pacegate'], ['daleji-properties-limited', 'Daleji Properties Limited'],
+];
+const testimonials = [
+  { title: 'Lifesaver', quote: 'Incash is very good. I got my salary on the 12th of the month when I had an emergency to attend to. Total lifesaver!', role: 'Operations Manager', company: 'SMRIDU Nig. Ltd' },
+  { title: 'Very Fast', quote: 'I received the money very fast. The bank alert came in just 3 minutes after placing a request. I highly recommend the platform.', role: 'Admin Executive', company: 'Samstar Nigeria' },
+  { title: 'Smooth experience', quote: 'The process from onboarding till I received money was a smooth experience for me. The support team is also very responsive.', role: 'Faculty Instructor', company: 'Aptech' },
+];
+---
+<section class="company-proof" aria-labelledby="partner-title">
+  <div class="container partner-loop">
+    <div class="company-proof-heading">
+      <h2 id="partner-title">Companies that work with Incash</h2>
+      <button class="partner-loop-toggle" type="button" hidden>Pause logos</button>
+    </div>
+    <div class="partner-loop-window">
+      <div class="partner-loop-track">
+        {[false, true].map((duplicate) => (
+          <ul class="partner-grid" aria-hidden={duplicate ? 'true' : undefined}>
+            {logos.map(([file, name]) => (
+              <li><img src={`/partners/${file}.webp`} alt={duplicate ? '' : name} width="126" height="58" loading="lazy" decoding="async" /></li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const loop = document.querySelector<HTMLElement>('.partner-loop');
+  const toggle = loop?.querySelector<HTMLButtonElement>('.partner-loop-toggle');
+  if (loop && toggle) {
+    loop.dataset.enhanced = '';
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      const paused = loop.toggleAttribute('data-paused');
+      toggle.textContent = paused ? 'Resume logos' : 'Pause logos';
+    });
+  }
+</script>
+<section class="customer-stories" aria-labelledby="testimonial-title">
+  <div class="container">
+    <h2 id="testimonial-title">What Incash customers say</h2>
+    <div class="story-grid">
+      {testimonials.map(({ title, quote, role, company }) => (
+        <figure class="story">
+          <span class="story-mark" aria-hidden="true">“</span>
+          <h3>{title}</h3>
+          <blockquote><p>{quote}</p></blockquote>
+          <figcaption><strong>{role}</strong><span>{company}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

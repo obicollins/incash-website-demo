@@ -1,0 +1,135 @@
+---
+import '../styles/product-showcase.css';
+import UiIcon from './UiIcon.astro';
+
+const descriptions = {
+  home: 'Illustrative Incash app home screen with available pay, a request action and recent activity',
+  limit: 'Illustrative Incash My Limit screen comparing available pay, wages already accessed and the account limit',
+  history: 'Illustrative Incash Request History screen showing sample salary advance and Salary Top-Up requests',
+  employer: 'Illustrative Incash employer dashboard showing employee onboarding, advance activity and payroll settlement',
+};
+
+interface Props {
+  screen: keyof typeof descriptions;
+  earnedPayOnly?: boolean;
+  highlightAdvance?: boolean;
+}
+
+const { screen, earnedPayOnly = false, highlightAdvance = false } = Astro.props;
+const activity = [
+  { name: 'Salary advance', date: '14 November', amount: '₦50,000', status: 'Settled' },
+  { name: 'Salary Top-Up', date: '8 November', amount: '₦30,000', status: 'In review' },
+  { name: 'Salary advance', date: '24 October', amount: '₦9,000', status: 'Settled' },
+  { name: 'Salary advance', date: '17 October', amount: '₦6,000', status: 'Settled' },
+  { name: 'Salary advance', date: '6 October', amount: '₦8,000', status: 'Settled' },
+];
+const visibleActivity = screen === 'limit'
+  ? activity.filter(({ name }) => name === 'Salary advance').slice(0, 3)
+  : screen === 'home' ? activity.slice(0, 3) : earnedPayOnly
+    ? activity.filter(({ name }) => name === 'Salary advance').map((request) => ({ ...request, name: 'Earned pay' }))
+    : highlightAdvance ? activity.filter(({ name }) => name === 'Salary advance') : activity;
+const description = highlightAdvance ? 'Illustrative Incash request history with a highlighted settled salary advance' : earnedPayOnly ? 'Illustrative Incash Request History screen showing earned pay requests' : descriptions[screen];
+const limits = [
+  { label: 'Account limit', value: '₦250,000' },
+  { label: 'Already accessed', value: '₦50,000' },
+];
+---
+<figure class:list={['product-showcase', `product-showcase--${screen}`, highlightAdvance && 'product-showcase--advance-feature']} role="img" aria-label={description}>
+  <div class="showcase-composition" aria-hidden="true">
+    <img class="showcase-mark" src="/incash-coin1.webp" alt="" width="165" height="240" loading="lazy" decoding="async" />
+
+    {screen === 'employer' ? (
+      <div class="dashboard-mock">
+        <div class="dashboard-top">
+          <img src="/incash-logo.svg" alt="" width="172" height="40" />
+          <span>Employer dashboard</span>
+          <div class="dashboard-avatar">A</div>
+        </div>
+        <div class="dashboard-layout">
+          <div class="dashboard-rail">
+            <span class="rail-active"><UiIcon name="home" size={15} /><span>Overview</span></span>
+            <span><UiIcon name="people" size={15} /><span>Employees</span></span>
+            <span><UiIcon name="list" size={15} /><span>Requests</span></span>
+            <span><UiIcon name="calendar" size={15} /><span>Payroll</span></span>
+          </div>
+          <div class="dashboard-main">
+            <strong>Payroll overview</strong>
+            <div class="dashboard-stats">
+              <div><UiIcon name="people" size={16} /><small>Employees onboarded</small><b>24</b></div>
+              <div><UiIcon name="wallet" size={16} /><small>Advances this cycle</small><b>8</b></div>
+            </div>
+            <div class="dashboard-payroll">
+              <span class="dashboard-status"><UiIcon name="calendar" size={16} /></span>
+              <div><b>Next payroll run</b><small>November salary cycle</small></div>
+              <span class="payroll-date">30 Nov</span>
+            </div>
+            <div class="dashboard-log">
+              <b>Recent activity</b>
+              <span><small>Employee verification</small><strong>Complete</strong></span>
+              <span><small>Salary advance request</small><strong>In review</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <>
+        <div class="device-frame">
+          <div class="device-screen">
+            <div class="device-status"><b>9:41</b><i></i><UiIcon name="signal" size={14} /></div>
+            <div class="device-top">
+              <img src="/incash-logo.svg" alt="" width="172" height="40" />
+              <span class="device-bell"><UiIcon name="bell" size={15} /></span>
+            </div>
+            <div class="device-content">
+              {screen === 'history' ? (
+                <>
+                  <strong class="device-title">Request history</strong>
+                  <div class="history-filter"><b>{highlightAdvance ? 'Salary advance' : 'All requests'}</b>{!highlightAdvance && <span>Salary advance</span>}</div>
+                </>
+              ) : (
+                <>
+                  <strong class="device-title">{screen === 'home' ? 'Hi, Kemi' : 'My Limit'}</strong>
+                  <div class="mock-balance">
+                    <div><small>{screen === 'home' ? 'Available earned pay' : 'Available to request'}</small><b>{screen === 'home' ? '₦250,000' : '₦200,000'}</b></div>
+                    <UiIcon name="wallet" size={23} />
+                  </div>
+                  {screen === 'home' ? (
+                    <span class="mock-request">Request an advance <UiIcon name="arrow" size={15} /></span>
+                  ) : (
+                    <div class="mock-limits">
+                      {limits.map(({ label, value }) => <div><small>{label}</small><b>{value}</b></div>)}
+                    </div>
+                  )}
+                  <div class="mock-activity-heading">
+                    <strong>{screen === 'home' ? 'Recent activity' : 'Previous requests'}</strong>
+                    <span>View all</span>
+                  </div>
+                </>
+              )}
+              <div class="history-rows">
+                {visibleActivity.map(({ name, date, amount, status }) => (
+                  <div class="history-item">
+                    <span class="history-icon"><UiIcon name={status === 'Settled' ? 'check' : 'clock'} size={16} /></span>
+                    <div><strong>{name}</strong><small>{date}</small></div>
+                    <div><b>{amount}</b><small class:list={['mock-status', status === 'Settled' && 'mock-status--settled']}>{status}</small></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="device-tabs">
+              <span class:list={[screen === 'home' && 'mock-tab-active']}><UiIcon name="home" size={15} /> Home</span>
+              <span class:list={[screen === 'limit' && 'mock-tab-active']}><UiIcon name="wallet" size={15} /> My Limit</span>
+              <span class:list={[screen === 'history' && 'mock-tab-active']}><UiIcon name="list" size={15} /> Requests</span>
+            </div>
+          </div>
+        </div>
+        {highlightAdvance && (
+          <div class="advance-highlight">
+            <span class="advance-highlight-icon"><UiIcon name="check" size={22} /></span>
+            <div><strong>Salary advance settled</strong><span>{activity[0].amount} · {activity[0].date}</span></div>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+</figure>

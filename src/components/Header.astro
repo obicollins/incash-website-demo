@@ -1,0 +1,253 @@
+---
+import UiIcon from './UiIcon.astro';
+
+interface Props {
+  route: string;
+}
+const { route } = Astro.props;
+const links = [
+  { label: 'Employer', href: '/Employer.html', page: 'Employer', related: ['payroll-financing-in-nigeria', 'working-capital-in-nigeria'] },
+  { label: 'Employee', href: '/', page: 'index', aliases: ['ewa'], related: ['salary-financing', 'salary-advance-in-nigeria'] },
+  { label: 'EWA', href: '/earned-wage-access-in-nigeria.html', page: 'earned-wage-access-in-nigeria' },
+  { label: 'Contact Us', href: '/contactus.html', page: 'contactus' },
+  { label: 'About Us', href: '/about.html', page: 'about', related: ['careers', 'termsOfUse', 'privacypolicy'] },
+  { label: 'HR Tools', href: '/hr-tools.html', page: 'hr-tools', badge: 'New', related: ['salary-paye', 'leave-calculator', 'hr-documents', 'probation-calculator', 'employee-turnover-calculator'] },
+  { label: 'Articles', href: 'https://blog.incash.africa/' },
+];
+---
+<header class="site-header">
+  <div class="container header-layout">
+    <a class="site-wordmark" href="/" aria-label="Incash home">
+      <img src="/incash-logo.svg" alt="Incash" width="172" height="40" />
+    </a>
+    <button class="site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-menu-open"><UiIcon name="menu" size={22} /></span>
+      <span class="site-menu-close"><UiIcon name="close" size={22} /></span>
+    </button>
+    <nav class="site-menu" id="site-menu" aria-label="Main navigation">
+      <ul class="site-links">
+        {links.map(({ label, href, page, aliases, related, badge }) => {
+          const currentPage = route === page || aliases?.includes(route);
+          const currentSection = related?.includes(route);
+          return (
+            <li>
+              <a href={href} class:list={[badge && 'site-link-with-badge']} aria-current={currentPage ? 'page' : currentSection ? 'location' : undefined}>
+                <span class="site-link-label">{label}</span>
+                {badge && <span class="site-new">{badge}</span>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="site-actions">
+        <details class="site-login">
+          <summary>Log in <UiIcon name="chevron" size={14} /></summary>
+          <div class="site-login-links">
+            <a href="https://employer.incash.africa/login"><UiIcon name="people" size={17} /> Employer login</a>
+            <a href="https://portal.incash.africa/login?type=employee"><UiIcon name="user" size={17} /> Employee login</a>
+          </div>
+        </details>
+        <a class="site-referral button" href="https://portal.incash.africa/refer-your-employer">
+          Refer your employer <UiIcon name="arrow" size={16} />
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.site-menu-toggle');
+  const login = document.querySelector<HTMLDetailsElement>('.site-login');
+  const nav = document.querySelector<HTMLElement>('.site-menu');
+
+  function setMenu(open: boolean) {
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    if (!open && login) login.open = false;
+  }
+
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+
+  document.addEventListener('pointerdown', (event) => {
+    if (!(event.target instanceof Node)) return;
+    if (!nav?.contains(event.target) && !toggle?.contains(event.target)) {
+      setMenu(false);
+    } else if (login && !login.contains(event.target)) {
+      login.open = false;
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (login?.open) {
+      login.open = false;
+      login.querySelector('summary')?.focus();
+    } else if (toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    background: #fffffffa;
+    border-bottom: 1px solid #e1e9f1;
+    box-shadow: 0 2px 12px #163b5d08;
+  }
+  .header-layout {
+    min-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: clamp(1.5rem, 4vw, 3.7rem);
+    position: relative;
+  }
+  .site-wordmark {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    min-height: 44px;
+  }
+  .site-wordmark img { display: block; width: clamp(113px, 11vw, 148px); height: auto; }
+  .site-menu-toggle { display: none; }
+  .site-menu { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .site-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: .2rem;
+  }
+  .site-links a, .site-login summary {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    min-height: 44px;
+    padding: .6rem .65rem;
+    border-radius: .6rem;
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 750;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .site-links a:hover, .site-login summary:hover, .site-login[open] summary { background: #f0f6fc; }
+  .site-links a[aria-current] { color: #125eae; background: #ecf5ff; }
+  .site-link-label { position: relative; }
+  .site-links a[aria-current] .site-link-label::after {
+    content: '';
+    position: absolute;
+    bottom: -.48rem;
+    left: calc(50% - 2.5px);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #1880e4;
+  }
+  .site-link-with-badge { position: relative; }
+  .site-new {
+    position: absolute;
+    left: 50%;
+    top: -.28rem;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 0 #6ab3ea00;
+    animation: new-indicator 2.5s ease-out 4;
+    padding: .19em .4em;
+    background: #dceeff;
+    color: #12497b;
+    border-radius: .26rem;
+    font-size: .58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+  }
+  @keyframes new-indicator {
+    45% { box-shadow: 0 0 0 4px #6ab3ea55; }
+    75%, 100% { box-shadow: 0 0 0 7px #6ab3ea00; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-new { animation: none; }
+  }
+  .site-actions { display: flex; align-items: center; gap: .65rem; }
+  .site-login { position: relative; }
+  .site-login summary { list-style: none; cursor: pointer; }
+  .site-login summary::-webkit-details-marker { display: none; }
+  .site-login[open] summary :global(svg) { transform: rotate(180deg); }
+  .site-login-links {
+    position: absolute;
+    top: calc(100% + .6rem);
+    right: 0;
+    width: max-content;
+    background: #fff;
+    padding: .36rem;
+    border: 1px solid #dfeaf4;
+    border-radius: .8rem;
+    box-shadow: 0 12px 30px #123c5c18;
+  }
+  .site-login-links a {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    min-height: 44px;
+    padding: .6rem .75rem;
+    border-radius: .5rem;
+    text-decoration: none;
+    font-size: .875rem;
+    font-weight: 700;
+  }
+  .site-login-links a:hover { background: #ecf5ff; color: #125eae; }
+  .site-referral {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    min-height: 44px;
+    padding: .65rem .8rem;
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1100px) {
+    .header-layout { min-height: 70px; }
+    .site-menu-toggle {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid #d5e8fa;
+      border-radius: .7rem;
+      background: #f0f7ff;
+      color: #133d62;
+      cursor: pointer;
+    }
+    .site-menu-toggle span { display: grid; place-items: center; }
+    .site-menu-toggle .site-menu-close, .site-menu-toggle[aria-expanded="true"] .site-menu-open { display: none; }
+    .site-menu-toggle[aria-expanded="true"] .site-menu-close { display: grid; }
+    .site-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      inset-inline: 0;
+      background: white;
+      border-bottom: 1px solid #deeaf5;
+      padding: .8rem clamp(1.1rem, 4vw, 2.25rem) 1.15rem;
+      max-height: calc(100dvh - 70px);
+      overflow-y: auto;
+      box-shadow: 0 16px 30px #18395715;
+    }
+    .site-menu-toggle[aria-expanded="true"] + .site-menu { display: block; }
+    .site-links { display: grid; gap: .13rem; }
+    .site-links a, .site-login summary { font-size: .94rem; padding-inline: .8rem; }
+    .site-new { position: static; transform: none; margin-left: .15rem; }
+    .site-actions { align-items: stretch; flex-direction: column; margin-top: .6rem; padding-top: .45rem; border-top: 1px solid #edf2f7; }
+    .site-login-links { width: 100%; position: static; box-shadow: none; margin-bottom: .45rem; }
+    .site-referral { width: fit-content; padding-inline: 1rem; }
+  }
+</style>

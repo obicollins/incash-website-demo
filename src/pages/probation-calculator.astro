@@ -1,0 +1,59 @@
+---
+import HRModule from '../layouts/HRModule.astro';
+---
+<HRModule title="Probation Period Calculator" pageTitle="Probation Period and Review Date Calculator"
+  description="Find the probation completion date and plan a review based on the employee’s start date and agreed probation period."
+  slug="probation-calculator">
+  <div class="tool-grid">
+    <div class="tool-panel">
+      <h2>Plan a probation review</h2>
+      <form class="tool-form" id="probation-form">
+        <label>Employment start date <input id="probation-start" type="date" min="1900-01-01" max="2200-12-31" required /></label>
+        <label>Probation length (months) <input id="probation-months" type="number" min="1" max="60" step="1" value="3" required /></label>
+        <label>Review lead time (calendar days) <input id="probation-lead" type="number" min="0" max="366" step="1" value="7" required /><small>How many days before completion should the review take place?</small></label>
+        <div class="tool-actions"><button class="button" type="submit" disabled>Calculate dates</button><button class="button tool-secondary" type="reset">Clear</button></div>
+        <p id="probation-error" class="tool-status" role="alert"></p>
+        <noscript><p>Enable JavaScript to calculate dates in this browser.</p></noscript>
+      </form>
+    </div>
+    <div class="tool-panel tool-result" aria-live="polite" aria-atomic="true">
+      <h2>Your probation timeline</h2>
+      <dl>
+        <div><dt>Probation completion date</dt><dd id="probation-end">—</dd></div>
+        <div><dt>Suggested review date</dt><dd id="probation-review">—</dd></div>
+      </dl>
+      <p>Completion falls on the same day of the target month, or the final day if that month is shorter. Review dates use calendar days. Check the employment terms and account for weekends or holidays when booking the review.</p>
+    </div>
+  </div>
+</HRModule>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#probation-form');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const value = (key: string) => document.querySelector<HTMLInputElement>('#probation-' + key)!.valueAsNumber;
+  const endOutput = document.getElementById('probation-end');
+  const reviewOutput = document.getElementById('probation-review');
+  const error = document.getElementById('probation-error');
+  const format = new Intl.DateTimeFormat('en-NG', {dateStyle: 'medium', timeZone: 'UTC'});
+  if (form && submit && endOutput && reviewOutput && error) {
+    const clear = () => { endOutput.textContent = reviewOutput.textContent = '—'; error.textContent = ''; };
+    submit.disabled = false;
+    form.addEventListener('reset', clear);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clear();
+      const start = new Date(value('start'));
+      const year = start.getUTCFullYear();
+      const target = start.getUTCMonth() + value('months');
+      const daysInMonth = new Date(Date.UTC(year, target + 1, 0)).getUTCDate();
+      const end = new Date(Date.UTC(year, target, Math.min(start.getUTCDate(), daysInMonth)));
+      const review = new Date(end);
+      review.setUTCDate(end.getUTCDate() - value('lead'));
+      endOutput.textContent = format.format(end);
+      if (review < start) {
+        error.textContent = 'Choose a shorter review lead time so the review falls on or after the start date.';
+        return;
+      }
+      reviewOutput.textContent = format.format(review);
+    });
+  }
+</script>

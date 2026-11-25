@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceArt from '../components/ServiceArt.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+---
+<Base title="About Incash Africa | Employee Financial Wellness in Nigeria"
+  description="Learn how Incash helps employees in Nigeria access pay before payday and helps employers meet payroll and other operating costs."
+  canonical="https://incash.africa/about.html">
+  <section class="hero inner-product has-brand-art">
+    <BrandMotif />
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">About Incash</span>
+        <h1>Better access to pay starts at work</h1>
+        <p class="lead">Incash is a Lagos-based fintech. We work with employers to help people access their pay early and help businesses finance payroll and operating costs.</p>
+        <div class="actions"><a class="button" href="/contactus.html">Get in touch</a><a class="secondary" href="/careers.html">Work with us ↗</a></div>
+      </div>
+      <div class="salary-guide-art">
+        <img src="/people-finance-camera.webp" alt="A professional using her phone" width="1200" height="800" decoding="async" />
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <h2>How Incash works with you</h2>
+      <div class="pay-options-grid">
+        <article class="pay-option">
+          <ServiceArt kind="earned" />
+          <h3>For employees</h3>
+          <p>If your employer offers Incash, see how much of your earned pay you can access before payday.</p>
+          <a class="secondary" href="/earned-wage-access-in-nigeria.html">Explore earned wage access ↗</a>
+        </article>
+        <article class="pay-option">
+          <ServiceArt kind="payroll" />
+          <h3>For employers</h3>
+          <p>Offer early access to wages as a staff benefit, or speak with us about financing your next payroll run.</p>
+          <a class="secondary" href="/Employer.html">See employer services ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container"><div class="cta-panel has-brand-art">
+      <BrandMotif variant="pair" />
+      <div><h2>Talk to us about your workplace</h2><p>Our team can help you find the right Incash service for your employees or business.</p></div>
+      <a class="button" href="/contactus.html">Contact us</a>
+    </div></div>
+  </section>
+</Base>

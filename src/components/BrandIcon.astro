@@ -1,0 +1,39 @@
+---
+const icons = {
+  advance: '/salary-advance.svg',
+  verification: '/minimal-documentation.svg',
+  repayment: '/easy-repayment.svg',
+  access: '/easy-access.svg',
+  interest: '/zero-interest.svg',
+  funds: '/brand/manage-funds.svg',
+  benefits: '/brand/employee-benefits.svg',
+  controls: '/brand/programme-controls.svg',
+  support: '/brand/support.svg',
+};
+
+interface Props {
+  name: keyof typeof icons;
+}
+
+const { name } = Astro.props;
+---
+<span class="brand-icon">
+  <img src={icons[name]} alt="" width="56" height="56" loading="lazy" decoding="async" />
+</span>
+
+<style>
+  .brand-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 4.35rem;
+    height: 4.35rem;
+    border-radius: 1.1rem;
+    background: #eff5f9;
+    margin-bottom: .65rem;
+  }
+  .brand-icon img {
+    width: 3.45rem;
+    height: 3.45rem;
+    object-fit: contain;
+  }
+</style>

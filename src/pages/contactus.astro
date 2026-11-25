@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import SupportLink from '../components/SupportLink.astro';
+import UiIcon from '../components/UiIcon.astro';
+import '../styles/contact.css';
+
+const paths = [
+  {icon: 'smartphone', title: 'Using Incash at work', copy: 'Find out how to get started, see what pay is available, or learn what happens after you request an advance.', href: '/salary-advance-in-nigeria.html', action: 'See how to request an advance'},
+  {icon: 'people', title: 'Offering Incash to your team', copy: 'Explore how to enrol your company and offer earned wage access through your payroll.', href: '/Employer.html', action: 'Explore employer onboarding'},
+  {icon: 'calendar', title: 'Planning your next payroll', copy: 'Talk to us about financing your next pay run and what to have ready when you enquire.', href: '/payroll-financing-in-nigeria.html', action: 'Explore payroll financing'},
+] as const;
+---
+<Base title="Contact Incash Africa | Employee Support and Employer Enquiries"
+  description="Contact Incash in Lagos, Nigeria, for employee support, employer onboarding or enquiries about financing options."
+  canonical="https://incash.africa/contactus.html">
+  <section class="hero inner-product has-brand-art">
+    <BrandMotif variant="pair" />
+    <div class="container contact-grid">
+      <div>
+        <p class="eyebrow">Contact Incash</p>
+        <h1>Let’s talk.</h1>
+        <p class="lead">Speak with our team about your account, bringing Incash to your workplace or financing your next payroll.</p>
+      </div>
+      <div class="contact-panel">
+        <h2>Reach our team</h2>
+        <div class="contact-channel"><SupportLink /></div>
+        <a class="contact-channel" href="mailto:team@incash.africa"><UiIcon name="mail" size={23} /><span><strong>Email us</strong><span>team@incash.africa</span></span><UiIcon name="arrow" size={16} /></a>
+        <a class="contact-channel" href="tel:+2349024999999"><UiIcon name="phone" size={23} /><span><strong>Call us</strong><span>+234 902 499 9999</span></span><UiIcon name="arrow" size={16} /></a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <h2>What can we help you with?</h2>
+      <div class="cards contact-paths">
+        {paths.map(({icon,title,copy,href,action}) => (
+          <article class="card">
+            <span class="feature-glyph"><UiIcon name={icon} size={26} /></span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+            <a class="secondary" href={href}>{action} <UiIcon name="arrow" size={15} /></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section contact-office has-brand-art">
+    <BrandMotif />
+    <div class="container contact-grid">
+      <div><span class="feature-glyph"><UiIcon name="pin" size={28} /></span><h2>Our Lagos office</h2></div>
+      <div class="contact-panel">
+        <address>Incash Inc., 10th Floor, Eleganza Biro Plaza, 634 Akin Adesola Street / Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria</address>
+        <a class="secondary" href="https://www.google.com/maps/search/?api=1&amp;query=Eleganza+Biro+Plaza+Victoria+Island+Lagos">Find us on the map <UiIcon name="arrow" size={15} /></a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,42 @@
+---
+interface Props {
+  variant?: 'edge' | 'pair';
+}
+
+const { variant = 'edge' } = Astro.props;
+---
+<div class:list={['brand-motif', `brand-motif--${variant}`]} aria-hidden="true">
+  {variant === 'pair' && <img class="mark-start" src="/incash-coin2.webp" alt="" width="225" height="378" loading="lazy" />}
+  <img class="mark-end" src="/incash-coin1.webp" alt="" width="165" height="240" loading="lazy" />
+</div>
+
+<style>
+  .brand-motif {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+  }
+  img { position: absolute; height: auto; }
+  .mark-start {
+    width: clamp(4.5rem, 15vw, 13rem);
+    inset: auto auto -2rem 0;
+    opacity: .24;
+  }
+  .mark-end {
+    width: clamp(4.5rem, 13vw, 10rem);
+    inset: 1.2rem 0 auto auto;
+    opacity: .37;
+  }
+  .brand-motif--edge .mark-end {
+    width: clamp(5rem, 13vw, 11rem);
+    right: 0;
+    top: auto;
+    bottom: -2.75rem;
+    opacity: .34;
+  }
+  @media (max-width: 600px) {
+    .mark-start, .mark-end, .brand-motif--edge .mark-end { opacity: .16; }
+  }
+</style>

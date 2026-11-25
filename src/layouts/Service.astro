@@ -1,0 +1,61 @@
+---
+import Base from './Base.astro';
+import ServiceArt from '../components/ServiceArt.astro';
+import UiIcon from '../components/UiIcon.astro';
+import BrandMotif from '../components/BrandMotif.astro';
+import Faq from '../components/Faq.astro';
+const { title, heading, description, intro, explanationTitle, explanation, uses, slug, closingTitle, action, questions, art } = Astro.props;
+const subject = encodeURIComponent(title);
+const canonical = `https://incash.africa/${slug}.html`;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: heading,
+  serviceType: title,
+  url: canonical,
+  description,
+  areaServed: { '@type': 'Country', name: 'Nigeria' },
+  provider: { '@type': 'FinancialService', name: 'Incash', url: 'https://incash.africa/' },
+};
+---
+<Base title={`${heading} | Incash`} {description} {canonical} {structuredData}>
+  <section class="hero service-hero has-brand-art" id={slug === 'salary-financing' ? 'salary-top-up' : undefined}>
+    <BrandMotif />
+    <div class="container service-grid">
+      <div>
+        <p class="eyebrow">Incash financing</p>
+        <h1>{heading}</h1>
+        <p class="lead">{intro}</p>
+        <div class="actions"><a class="button" href={`mailto:team@incash.africa?subject=${subject}`}>{action} ↗</a></div>
+      </div>
+      <aside class="service-aside">
+        <ServiceArt kind={art} />
+        <h2>{explanationTitle}</h2>
+        <p>{explanation}</p>
+        <a class="secondary" href={slug === 'salary-financing' ? '/earned-wage-access-in-nigeria.html' : '/Employer.html'}>{slug === 'salary-financing' ? 'Compare with earned wage access' : 'Explore employer solutions'} ↗</a>
+      </aside>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <h2>What to ask about</h2>
+      <div class="cards service-cards">
+        {uses.map(({ title, text, icon }) => (
+          <article class="card">
+            <span class="feature-glyph"><UiIcon name={icon} size={26} /></span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Faq title={`Questions about ${title === 'Salary Top-Up' ? title : title.toLowerCase()}`} items={questions} />
+  <section class="section closing-section">
+    <div class="container"><div class="cta-panel has-brand-art">
+      <BrandMotif variant="pair" />
+      <h2>{closingTitle}</h2>
+      <a class="button" href="/contactus.html">Contact Incash ↗</a>
+    </div></div>
+  </section>
+</Base>

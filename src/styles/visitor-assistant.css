@@ -1,0 +1,70 @@
+.visitor-assistant {
+  position: fixed;
+  z-index: 9;
+  inset: auto max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) auto;
+}
+.visitor-assistant summary {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 52px;
+  padding: .34rem .9rem .34rem .48rem;
+  border: 1px solid #ddedff;
+  border-radius: 999px;
+  background: #10457e;
+  color: #fff;
+  box-shadow: 0 .55rem 1.4rem #092a4e38;
+  font-size: .88rem;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+.visitor-assistant summary::-webkit-details-marker { display: none; }
+.visitor-assistant summary:hover { background: #0d3767; }
+.assistant-avatar { flex: none; }
+.assistant-panel {
+  position: absolute;
+  inset: auto 0 calc(100% + .65rem) auto;
+  width: min(22rem, calc(100vw - 2.75rem));
+  max-height: min(31rem, max(5rem, calc(100dvh - 9.5rem)));
+  overflow: auto;
+  padding: clamp(.9rem, 3vw, 1.25rem);
+  border: 1px solid #d5e4f0;
+  border-radius: 1rem;
+  background: #fff;
+  color: #153450;
+  box-shadow: 0 .7rem 2.3rem #082a4d30;
+}
+.assistant-panel header { display: flex; gap: .65rem; align-items: center; justify-content: space-between; }
+.assistant-panel h2 { margin: 0; font-size: 1.4rem; }
+.assistant-panel p { margin: .55rem 0 .8rem; color: #354e62; font-size: .9rem; }
+.assistant-panel ul { padding: 0; margin: 0 0 .55rem; list-style: none; }
+.assistant-panel ul a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem .1rem;
+  border-bottom: 1px solid #dce8f1;
+  color: #134e86;
+  font-weight: 750;
+  font-size: .88rem;
+}
+.assistant-panel ul svg { flex: none; }
+.assistant-close:not([hidden]) {
+  display: grid;
+  flex: 0 0 44px;
+  min-height: 44px;
+  place-items: center;
+  border: 0;
+  border-radius: .55rem;
+  background: #edf5ff;
+  color: #10457e;
+  cursor: pointer;
+}
+@media (max-width: 620px) {
+  .visitor-assistant { inset: auto max(.65rem, env(safe-area-inset-right)) max(.65rem, env(safe-area-inset-bottom)) auto; }
+  .visitor-assistant summary { width: 52px; justify-content: center; padding: 0; }
+  .visitor-assistant summary span { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; white-space: nowrap; }
+}

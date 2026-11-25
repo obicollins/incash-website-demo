@@ -1,0 +1,47 @@
+---
+import SupportLink from './SupportLink.astro';
+
+interface Question {
+  question: string;
+  answer: string;
+  link?: { href: string; label: string };
+}
+interface Props {
+  title?: string;
+  items: Question[];
+  featured?: Question[];
+}
+
+const { title = 'Frequently asked questions', items, featured = items } = Astro.props;
+const more = items.filter((item) => !featured.includes(item));
+---
+<section class="questions-section" aria-labelledby="questions-title">
+  <div class="container questions-layout">
+    <div>
+      <h2 id="questions-title">{title}</h2>
+      <p>Still have a question?</p>
+      <SupportLink />
+    </div>
+    <div class="questions-list">
+      {featured.map(({ question, answer, link }) => (
+        <details class="faq-item">
+          <summary>{question}<span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p>{answer}{link && <> <a href={link.href}>{link.label}</a></>}</p>
+        </details>
+      ))}
+      {more.length > 0 && (
+        <details class="more-questions">
+          <summary><span class="when-closed">See all questions</span><span class="when-open">Show fewer questions</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <div>
+            {more.map(({ question, answer, link }) => (
+              <details class="faq-item">
+                <summary>{question}<span class="faq-toggle" aria-hidden="true"></span></summary>
+                <p>{answer}{link && <> <a href={link.href}>{link.label}</a></>}</p>
+              </details>
+            ))}
+          </div>
+        </details>
+      )}
+    </div>
+  </div>
+</section>

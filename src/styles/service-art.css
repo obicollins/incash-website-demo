@@ -1,0 +1,26 @@
+.service-art {
+  --art-bg: #dfedff;
+  --art-highlight: #f1f8ff;
+  --art-ink: #2465ae;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 2.25;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: url('/incash-coin1.webp') right -1.55rem top -2.25rem / 7.5rem auto no-repeat,
+    linear-gradient(133deg, var(--art-highlight), var(--art-bg));
+}
+.service-art--earned { --art-bg: #d5eade; --art-highlight: #f0f8f1; --art-ink: #276552; }
+.service-art--topup { --art-bg: #e3e8fb; --art-highlight: #f4f7ff; --art-ink: #3255a5; }
+.service-art--payroll { --art-bg: #cce9f5; --art-highlight: #edf9fc; --art-ink: #136585; }
+.service-art--capital { --art-bg: #ebdfc6; --art-highlight: #f8f3e7; --art-ink: #775412; }
+.service-art svg { display: block; width: min(86%, 248px); height: 100%; max-height: 100%; }
+.art-paper { fill: #fff; stroke: var(--art-ink); stroke-width: 2; }
+.art-ground { stroke: var(--art-ink); stroke-opacity: .21; stroke-width: 1.5; stroke-linecap: round; }
+.art-line, .art-bar, .art-white { stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.art-line, .art-bar { stroke: var(--art-ink); }
+.art-bar { stroke-width: 6; }
+.art-strong { fill: var(--art-ink); }
+.art-white { stroke: #fff; }

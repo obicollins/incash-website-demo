@@ -1,0 +1,22 @@
+---
+import Service from '../layouts/Service.astro';
+
+const uses = [
+  { icon: 'calendar', title: 'Start with the payroll date', text: 'Tell us when salaries are due and how much of the upcoming payroll you need to cover.' },
+  { icon: 'list', title: 'Confirm the information needed', text: 'Ask which payroll records, company documents and cash-flow details Incash needs to review your enquiry.' },
+  { icon: 'clock', title: 'Check when funds and repayments are due', text: 'Compare the proposed funding date and total repayment with your salary deadline and expected customer receipts.' },
+] as const;
+const questions = [
+  { question: 'What is payroll financing in Nigeria?', answer: 'Payroll financing helps an employer cover salaries when payday comes before money the business expects to receive. For example, a company may need to run month-end payroll before a customer pays a large invoice.' },
+  { question: 'Who can enquire about payroll financing?', answer: 'HR, payroll and finance teams at businesses in Nigeria can contact Incash about an upcoming pay run. Share the payroll date, the amount you need and when you expect cash to come in so the team can discuss eligibility with you.' },
+  { question: 'How does payroll financing differ from earned wage access?', answer: 'Payroll financing funds an employer’s salary run. Earned wage access lets eligible employees request part of the pay they have already earned before payday.', link: {href: '/earned-wage-access-in-nigeria.html', label: 'Explore earned wage access'} },
+  { question: 'Can I enquire about stock or supplier payments as well?', answer: 'For inventory, supplier invoices and other operating costs, ask about working capital financing.', link: {href: '/working-capital-in-nigeria.html', label: 'Explore working capital financing'} },
+];
+---
+<Service title="Payroll financing" slug="payroll-financing-in-nigeria" art="payroll" heading="Payroll Financing in Nigeria"
+  description="Enquire about Incash payroll financing for Nigerian businesses. Discuss funding for an upcoming salary run, required documents and repayment."
+  intro="Payday can come before your next customer payment. Speak with Incash about financing your next salary run in Nigeria."
+  explanationTitle="Cover salaries when cash comes in later"
+  explanation="Payroll financing gives a business a way to pay employees on schedule when customer receipts arrive later. Start by identifying the payroll shortfall and the date you need funds."
+  action="Discuss an upcoming payroll" closingTitle="Plan for your next payroll"
+  {uses} {questions} />

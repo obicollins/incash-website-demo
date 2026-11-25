@@ -1,0 +1,22 @@
+---
+import Service from '../layouts/Service.astro';
+
+const uses = [
+  { icon: 'wallet', title: 'Identify what you need to cover', text: 'List the costs coming due, such as a stock order or supplier invoice, and the amount you need to bridge the gap.' },
+  { icon: 'chart', title: 'Map when cash comes in', text: 'Share when you expect to collect invoices or receive sales revenue. Use that date to assess the proposed repayment schedule.' },
+  { icon: 'list', title: 'Review the terms before applying', text: 'Ask Incash which businesses and expenses qualify, what documents you’ll need, and what the full cost and repayment terms would be.' },
+] as const;
+const questions = [
+  { question: 'What is working capital financing?', answer: 'Working capital financing helps a business cover day-to-day operating costs while it waits for sales revenue or customer payments. It can help bridge gaps involving inventory, supplier bills and other eligible operating expenses.' },
+  { question: 'When might a Nigerian business use working capital financing?', answer: 'A retailer may need to restock before its next sales cycle, or a supplier may have bills due before customers settle their invoices. Share the expense and expected payment dates with Incash to discuss what qualifies.' },
+  { question: 'How do I enquire about working capital financing with Incash?', answer: 'Contact the Incash team with your business name, what the funding would cover, how much you need and when you expect to repay. The team can explain eligibility, documentation and available terms.', link: {href: '/contactus.html', label: 'Contact Incash'} },
+  { question: 'What if my main expense is salaries?', answer: 'If the immediate need is an upcoming salary run, ask Incash about payroll financing.', link: {href: '/payroll-financing-in-nigeria.html', label: 'Explore payroll financing'} },
+];
+---
+<Service title="Working capital financing" slug="working-capital-in-nigeria" art="capital" heading="Working Capital Financing in Nigeria"
+  description="Ask Incash about working capital financing for businesses in Nigeria. Explore funding for stock, supplier invoices and other operating costs."
+  intro="Stock and supplier bills can fall due before customers pay. Ask Incash about working capital financing for your business in Nigeria."
+  explanationTitle="Bridge the gap between bills and customer payments"
+  explanation="Working capital financing helps cover operating expenses while your business waits for cash to come in. Start with the amount you need, the date the expense is due and when you expect to collect payment."
+  action="Ask about working capital" closingTitle="Keep your business moving"
+  {uses} {questions} />

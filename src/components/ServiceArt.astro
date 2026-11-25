@@ -1,0 +1,64 @@
+---
+import '../styles/service-art.css';
+
+interface Props {
+  kind: 'advance' | 'earned' | 'topup' | 'payroll' | 'capital';
+}
+
+const { kind } = Astro.props;
+---
+<div class:list={['service-art', `service-art--${kind}`]} aria-hidden="true">
+  <svg width="248" height="142" viewBox="0 0 248 142" fill="none" aria-hidden="true" focusable="false">
+    <path d="M39 103h171" class="art-ground" />
+    {kind === 'advance' && <>
+      <g transform="translate(68 26) rotate(-9 57 41)">
+        <rect x="0" y="0" width="114" height="78" rx="13" class="art-paper" />
+        <path d="M0 24h114M25 0v13M89 0v13M24 42h9m15 0h9m15 0h9m-57 17h9m15 0h9" class="art-line" />
+      </g>
+      <g transform="translate(145 57)">
+        <rect width="57" height="57" rx="17" class="art-strong" />
+        <path d="M39 28H18m0 0 9-9m-9 9 9 9" class="art-white" />
+      </g>
+    </>}
+    {kind === 'earned' && <>
+      <g transform="translate(50 30) rotate(-6 67 39)">
+        <rect width="127" height="74" rx="14" class="art-paper" />
+        <path d="M18 20h40" class="art-line" />
+        <path d="M22 54V43m18 11V37m18 17V28m18 26V37m18 17V24" class="art-bar" />
+      </g>
+      <circle cx="173" cy="76" r="32" class="art-strong" />
+      <circle cx="173" cy="76" r="18" class="art-white" />
+      <path d="M173 64v13l8 4" class="art-white" />
+    </>}
+    {kind === 'topup' && <>
+      <g transform="translate(47 49) rotate(-8 67 30)">
+        <rect width="132" height="61" rx="12" class="art-paper" />
+        <path d="M20 20h73m-73 22h60" class="art-line" />
+      </g>
+      <g transform="translate(130 24)">
+        <rect width="66" height="66" rx="20" class="art-strong" />
+        <path d="M33 17v32M17 33h32" class="art-white" />
+      </g>
+    </>}
+    {kind === 'payroll' && <>
+      <g transform="translate(49 23)">
+        <rect width="101" height="83" rx="13" class="art-paper" />
+        <path d="M0 24h101M21 0v13M79 0v13M19 42h42m-42 14h33m-33 14h28" class="art-line" />
+      </g>
+      <g transform="translate(116 58)">
+        <rect width="84" height="54" rx="13" class="art-strong" />
+        <path d="m20 25 8 8 14-15m10 11h15" class="art-white" />
+      </g>
+    </>}
+    {kind === 'capital' && <>
+      <g transform="translate(51 38)">
+        <path d="m0 13 32-13 32 13v45L32 71 0 58Z" class="art-paper" />
+        <path d="m1 14 31 13 31-13M32 27v43m-15-63 31 13" class="art-line" />
+      </g>
+      <g transform="translate(126 18)">
+        <rect width="67" height="67" rx="18" class="art-strong" />
+        <path d="M19 47 34 32l7 5 12-15m-12 0h12v12" class="art-white" />
+      </g>
+    </>}
+  </svg>
+</div>
